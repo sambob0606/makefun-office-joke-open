@@ -8,10 +8,9 @@ fully deterministic.
 
 import os
 
-LINE = (
-    "The office printer only jams when the CEO walks past — turns out "
-    "it's the one employee here with a promotion strategy."
-)
+SETUP = "The office printer only jams when the CEO walks past"
+PUNCHLINE = "it's the one employee here whose meltdowns keep getting it promoted."
+LINE = f"{SETUP} — {PUNCHLINE}"
 # The joke: a complaint everyone recognises (the printer jams) turns on
 # the last few words — the jam is not a malfunction, it is a career move.
 # The printer becomes the office's most strategic employee, timing its
@@ -26,6 +25,8 @@ def main() -> None:
     assert 1 <= len(text) <= 200, f"line is {len(text)} chars, must be 1-200"
     assert "\n" not in text, "entry must be a single line"
     assert text.strip(), "line must not be only whitespace"
+    assert text.endswith("."), "one-line joke must end with a period"
+    assert "  " not in text, "entry must not contain double spaces"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(text)
